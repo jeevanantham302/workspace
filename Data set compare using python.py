@@ -1,5 +1,10 @@
 import pandas as pd
 import numpy as np
+! pip install python-Levenshtein##Optional
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
+import itertools
+
 
 dataset1_FilePath=r"path\..\dataset1.xls"#user input needed
 dataset2_FilePath=r"path\..\dateset2.xls"#user input needed
@@ -15,12 +20,8 @@ dataset2 = pd.read_excel(dataset2_FilePath, sheet_name='fdp')
 
 """Getting schema into Dictionary for further processing"""
 colindex={'dataset1':list(dataset1.columns),'dataset2':list(dataset2.columns)}
-In [ ]:
-! pip install python-Levenshtein##Optional
-In [105]:
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
-In [307]:
+
+
 """ Trying to match the schema between two dataframe(dataset) using famous Fuzzy String Matching
 
 Note: based on cloumns name this matching will be accurate.
@@ -48,7 +49,7 @@ for i,j,l in zip(colindex['dataset1'],colindex['dataset2'],range(0,len(colindex[
         colindex['dataset2'].pop(l)
 
 """finding the position/index of duplicate column name matching within dataset2 itself"""
-import itertools
+
 s={}
 for item in colindex['dataset2']:
     indexes=[i for i, j in enumerate(colindex['dataset2']) if j == item]
